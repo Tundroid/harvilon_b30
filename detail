@@ -1,0 +1,216 @@
+[SCRIPT]
+#!/bin/bash
+# logout
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  --data-raw 'goformId=LOGOUT' \
+  --insecure --verbose
+
+[RESPONSE]
+# logging out
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.213.1:80...
+* Connected to 192.168.213.1 (192.168.213.1) port 80
+> POST /reqproc/proc_post HTTP/1.1
+> Host: 192.168.213.1
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Length: 15
+> Content-Type: application/x-www-form-urlencoded
+> 
+} [15 bytes data]
+* upload completely sent off: 15 bytes
+< HTTP/1.1 200 OK
+< Server: Demo-Webs
+< X-Frame-Options: SAMEORIGIN
+< Pragma: no-cache
+< Cache-control: no-cache
+< Content-Type: text/html
+< 
+* no chunk, no close, no size. Assume close to signal end
+{ [20 bytes data]
+100    35    0    20  100    15   1029    771 --:--:-- --:--:-- --:--:--  1842
+* Closing connection
+{"result":"success"}
+
+
+[SCRIPT]
+#!/bin/bash
+# connect
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  --data-raw 'goformId=CONNECT_NETWORK' \
+  --verbose
+
+[RESPONSE]
+# connect without logging in
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.213.1:80...
+* Connected to 192.168.213.1 (192.168.213.1) port 80
+> POST /reqproc/proc_post HTTP/1.1
+> Host: 192.168.213.1
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Length: 24
+> Content-Type: application/x-www-form-urlencoded
+> 
+} [24 bytes data]
+* upload completely sent off: 24 bytes
+< HTTP/1.1 200 OK
+< Server: Demo-Webs
+< X-Frame-Options: SAMEORIGIN
+< Pragma: no-cache
+< Cache-control: no-cache
+< Content-Type: text/html
+< 
+* no chunk, no close, no size. Assume close to signal end
+{ [20 bytes data]
+100    44    0    20  100    24   1611   1933 --:--:-- --:--:-- --:--:--  3666
+* Closing connection
+{"result":"failure"}
+
+
+[SCRIPT]
+#!/bin/bash
+# disconnect
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  --data-raw 'goformId=DISCONNECT_NETWORK' \
+  --insecure --verbose
+
+[RESPONSE]
+# disconnect without logging in
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.213.1:80...
+* Connected to 192.168.213.1 (192.168.213.1) port 80
+> POST /reqproc/proc_post HTTP/1.1
+> Host: 192.168.213.1
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Length: 27
+> Content-Type: application/x-www-form-urlencoded
+> 
+} [27 bytes data]
+* upload completely sent off: 27 bytes
+< HTTP/1.1 200 OK
+< Server: Demo-Webs
+< X-Frame-Options: SAMEORIGIN
+< Pragma: no-cache
+< Cache-control: no-cache
+< Content-Type: text/html
+< 
+* no chunk, no close, no size. Assume close to signal end
+{ [20 bytes data]
+100    47    0    20  100    27    199    268 --:--:-- --:--:-- --:--:--   470
+* Closing connection
+{"result":"failure"}
+
+
+[SCRIPT]
+#!/bin/bash
+# login
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  --data-raw 'goformId=LOGIN&password=bW9sZWFkbWlu' \
+  --insecure --verbose
+
+[RESPONSE]
+# logging in
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.213.1:80...
+* Connected to 192.168.213.1 (192.168.213.1) port 80
+> POST /reqproc/proc_post HTTP/1.1
+> Host: 192.168.213.1
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Length: 36
+> Content-Type: application/x-www-form-urlencoded
+> 
+} [36 bytes data]
+* upload completely sent off: 36 bytes
+< HTTP/1.1 200 OK
+< Server: Demo-Webs
+< X-Frame-Options: SAMEORIGIN
+< Pragma: no-cache
+< Cache-control: no-cache
+< Content-Type: text/html
+< 
+* no chunk, no close, no size. Assume close to signal end
+{ [14 bytes data]
+100    50    0    14  100    36    611   1571 --:--:-- --:--:-- --:--:--  2272
+* Closing connection
+{"result":"0"}
+
+
+[SCRIPT]
+#!/bin/bash
+# connect
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  --data-raw 'goformId=CONNECT_NETWORK' \
+  --verbose
+
+[RESPONSE]
+# connect with logging in
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.213.1:80...
+* Connected to 192.168.213.1 (192.168.213.1) port 80
+> POST /reqproc/proc_post HTTP/1.1
+> Host: 192.168.213.1
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Length: 24
+> Content-Type: application/x-www-form-urlencoded
+> 
+} [24 bytes data]
+* upload completely sent off: 24 bytes
+< HTTP/1.1 200 OK
+< Server: Demo-Webs
+< X-Frame-Options: SAMEORIGIN
+< Pragma: no-cache
+< Cache-control: no-cache
+< Content-Type: text/html
+< 
+* no chunk, no close, no size. Assume close to signal end
+{ [20 bytes data]
+100    44    0    20  100    24   1426   1712 --:--:-- --:--:-- --:--:--  3384
+* Closing connection
+{"result":"success"}
+
+
+[SCRIPT]
+#!/bin/bash
+# disconnect
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  --data-raw 'goformId=DISCONNECT_NETWORK' \
+  --insecure --verbose
+
+[RESPONSE]
+# disconnect with logging in
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.213.1:80...
+* Connected to 192.168.213.1 (192.168.213.1) port 80
+> POST /reqproc/proc_post HTTP/1.1
+> Host: 192.168.213.1
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Length: 27
+> Content-Type: application/x-www-form-urlencoded
+> 
+} [27 bytes data]
+* upload completely sent off: 27 bytes
+< HTTP/1.1 200 OK
+< Server: Demo-Webs
+< X-Frame-Options: SAMEORIGIN
+< Pragma: no-cache
+< Cache-control: no-cache
+< Content-Type: text/html
+< 
+* no chunk, no close, no size. Assume close to signal end
+{ [20 bytes data]
+100    47    0    20  100    27    863   1165 --:--:-- --:--:-- --:--:--  2043
+* Closing connection
+{"result":"success"}
+
+
