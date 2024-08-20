@@ -21,21 +21,28 @@ def is_internet_reachable():
 
 def login():
     data = {'goformId': 'LOGIN', 'password': 'bW9sZWFkbWlu'}
-    requests.post('http://192.168.213.1/reqproc/proc_post', data=data)
+    response = requests.post('http://192.168.213.1/reqproc/proc_post', data=data)
+    return response.json()['result'] == '0'
 
 def logout():
     data = {'goformId': 'LOGOUT'}
     requests.post('http://192.168.213.1/reqproc/proc_post', data=data)
 
 def connect():
+    print("Connecting...")
     data = {'goformId': 'CONNECT_NETWORK'}
     response = requests.post('http://192.168.213.1/reqproc/proc_post', data=data)
-    return response.json()['result'] == 'success'
+    return_value = response.json()['result'] == 'success'
+    print("Successful!" if return_value else "Failed!")
+    return return_value
 
 def disconnect():
+    print("Disconnecting...")
     data = {'goformId': 'DISCONNECT_NETWORK'}
     response = requests.post('http://192.168.213.1/reqproc/proc_post', data=data)
-    return response.json()['result'] == 'success'
+    return_value = response.json()['result'] == 'success'
+    print("Successful!" if return_value else "Failed!")
+    return return_value
 
 def reconnect_internet():
     if is_connected_to_ap():
@@ -46,8 +53,9 @@ def reconnect_internet():
                 print("Internet is not reachable, trying to reconnect...")
                 if not disconnect():
                     print("Failed to disconnect, logging in...")
-                    login()
-                    disconnect()
+                    if login():
+                        print("Log in successful...")
+                        disconnect()
                 connect()
         except requests.ReadTimeout:
             print("Timeout occurred, waiting for next interval...")
@@ -55,7 +63,7 @@ def reconnect_internet():
         print("Not connected to AP, waiting for next interval...")
 
 # Run the script every 10 seconds
-schedule.every(10).seconds.do(reconnect_internet)
+schedule.every(3).seconds.do(reconnect_internet)
 
 while True:
     schedule.run_pending()
