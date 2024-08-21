@@ -134,7 +134,7 @@ def reconnect_internet() -> None:
 if __name__ == "__main__":
     init(autoreset=True)
     # Run the script every 60 seconds
-    schedule.every(2).seconds.do(reconnect_internet)
+    schedule.every(60).seconds.do(reconnect_internet)
 
     while True:
         if connect_failure_count == MAX_RECONNECT_TRIES:
