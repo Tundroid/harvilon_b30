@@ -85,16 +85,16 @@ def reconnect_internet():
             print(Style.BRIGHT + Fore.YELLOW + "Timeout occurred, waiting for next interval...")
             connect_failure_count += 1
     else:
-        print(Style.BRIGHT + Fore.YELLOW + "Not connected to AP, waiting for next interval...")
+        print(Style.BRIGHT + Fore.YELLOW + "Not connected to AP, searching for device...")
 
 
 if __name__ == "__main__":
     init(autoreset=True)
-    # Run the script every 10 seconds
-    schedule.every(3).seconds.do(reconnect_internet)
+    # Run the script every 60 seconds
+    schedule.every(60).seconds.do(reconnect_internet)
 
     while True:
-        if connect_failure_count == MAX_CONNECT_FAILURE:
+        if connect_failure_count == MAX_RECONNECT_TRIES:
             connect_failure_count = 0
             reboot()
         schedule.run_pending()
