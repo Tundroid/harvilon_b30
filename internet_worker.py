@@ -51,6 +51,13 @@ def disconnect():
     print(Style.BRIGHT + Fore.GREEN + "Ok!" if return_value else Style.BRIGHT + Fore.RED + "Failed!")
     return return_value
 
+def reboot():
+    print(Style.BRIGHT + Fore.YELLOW + "Rebooting...")
+    data = {'goformId': 'REBOOT_DEVICE'}
+    requests.post(f'{GATEWAY_BASE_URL}/reqproc/proc_post', data=data)
+    time.sleep(3)
+    print(Style.BRIGHT + Fore.YELLOW + "Searching for device...")
+
 def reconnect_internet():
     if is_connected_to_ap():
         try:
@@ -73,7 +80,7 @@ def reconnect_internet():
 if __name__ == "__main__":
     init(autoreset=True)
     # Run the script every 10 seconds
-    schedule.every(10).seconds.do(reconnect_internet)
+    schedule.every(3).seconds.do(reconnect_internet)
 
     while True:
         schedule.run_pending()

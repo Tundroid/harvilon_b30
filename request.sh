@@ -1,0 +1,11 @@
+curl 'http://192.168.213.1/reqproc/proc_post' \
+  -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+  -H 'Accept-Language: en-US,en;q=0.9,fr-FR;q=0.8,fr;q=0.7' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+  -H 'Cookie: MicrosoftApplicationsTelemetryDeviceId=c205d40f-70da-4cbc-b271-75d8134a1c27; MicrosoftApplicationsTelemetryFirstLaunchTime=2024-06-19T14:07:41.009Z' \
+  -H 'Origin: http://192.168.213.1' \
+  -H 'Referer: http://192.168.213.1/index.html' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0' \
+  -H 'X-Requested-With: XMLHttpRequest' \
+  --data-raw 'goformId=REBOOT_DEVICE'
