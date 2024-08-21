@@ -7,6 +7,7 @@ import schedule
 import time
 from values import *
 
+connect_failure_count = 0
 
 def is_connected_to_ap():
     try:
@@ -54,17 +55,26 @@ def disconnect():
 def reboot():
     print(Style.BRIGHT + Fore.YELLOW + "Rebooting...")
     data = {'goformId': 'REBOOT_DEVICE'}
-    requests.post(f'{GATEWAY_BASE_URL}/reqproc/proc_post', data=data)
-    time.sleep(3)
-    print(Style.BRIGHT + Fore.YELLOW + "Searching for device...")
+    try:
+        requests.post(f'{GATEWAY_BASE_URL}/reqproc/proc_post', data=data)
+    except requests.exceptions.ConnectionError:
+        pass
+    print(Style.BRIGHT + Fore.YELLOW + "Waiting for device", end="")
+    for i in range(40):
+        print(Style.BRIGHT + Fore.YELLOW + ".", end="")
+        time.sleep(1)
+    print()
 
 def reconnect_internet():
+    global connect_failure_count
     if is_connected_to_ap():
         try:
             if is_internet_reachable():
                 print(Style.BRIGHT + Fore.GREEN + "Ok, waiting for next interval...")
+                connect_failure_count = 0
             else:
                 print(Style.BRIGHT + Fore.RED + "Failed, trying to reconnect...")
+                connect_failure_count += 1
                 if not disconnect():
                     if login():
                         disconnect()
@@ -73,6 +83,7 @@ def reconnect_internet():
                 connect()
         except requests.ReadTimeout:
             print(Style.BRIGHT + Fore.YELLOW + "Timeout occurred, waiting for next interval...")
+            connect_failure_count += 1
     else:
         print(Style.BRIGHT + Fore.YELLOW + "Not connected to AP, waiting for next interval...")
 
@@ -83,5 +94,8 @@ if __name__ == "__main__":
     schedule.every(3).seconds.do(reconnect_internet)
 
     while True:
+        if connect_failure_count == MAX_CONNECT_FAILURE:
+            connect_failure_count = 0
+            reboot()
         schedule.run_pending()
         time.sleep(1)
